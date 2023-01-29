@@ -2,11 +2,11 @@
 #SBATCH -p mlhiwidlc_gpu-rtx2080-advanced # partition (queue)
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:8
-#SBATCH -J replicate-experiment # sets the job name. If not specified, the file name will be used as job name
+#SBATCH -J dino-stn-vit_nano-32_16-tcp_eps10_avg-caugm-pretrain-ep300 # sets the job name. If not specified, the file name will be used as job name
 #SBATCH -D /work/dlclarge1/rapanti-stn_cifar/thetacropspenalty
-#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/replicate-experiment/log/%A.%a.%N.out  # STDOUT
-#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/replicate-experiment/log/%A.%a.%N.out  # STDERR
-#SBATCH --array 0-64%1
+#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn-vit_nano-32_16-tcp_eps10_avg-caugm-pretrain-ep300/log/%A.%a.%N.out  # STDOUT
+#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn-vit_nano-32_16-tcp_eps10_avg-caugm-pretrain-ep300/log/%A.%a.%N.out  # STDERR
+#SBATCH --array 0-32%1
 
 # Print some information about the job to STDOUT
 echo "Workingdir: $PWD"
@@ -16,7 +16,7 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/replicate-experiment
+EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn-vit_nano-32_16_4-tcp_eps10_avg-caugm-pretrain-ep300
 # Job to perform
 torchrun \
   --nproc_per_node=8 \
@@ -31,8 +31,8 @@ torchrun \
       --data_path /work/dlclarge1/rapanti-stn_cifar/data/datasets/CIFAR10 \
       --dataset CIFAR10 \
       --output_dir $EXP_D \
-      --epochs 1000 \
-      --warmup_epoch 100 \
+      --epochs 300 \
+      --warmup_epoch 30 \
       --batch_size_per_gpu 128 \
       --invert_stn_gradients true \
       --stn_theta_norm true \
