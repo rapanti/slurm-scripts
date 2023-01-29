@@ -3,7 +3,7 @@
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:8
 #SBATCH -J dino-stn_rtss-vit_nano-32_16_4-tcp_eps10_rand-caugm-pretrain-ep300 # sets the job name. If not specified, the file name will be used as job name
-#SBATCH -D /work/dlclarge1/rapanti-stn_cifar/metassl-rpn-dino
+#SBATCH -D /work/dlclarge1/rapanti-stn_cifar/metassl-dino-rpn
 #SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn_rtss-vit_nano-32_16_4-tcp_eps10_rand-caugm-pretrain-ep300/log/%A.%a.%N.out  # STDOUT
 #SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn_rtss-vit_nano-32_16_4-tcp_eps10_rand-caugm-pretrain-ep300/log/%A.%a.%N.out  # STDERR
 #SBATCH --array 0-32%1
