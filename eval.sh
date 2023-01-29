@@ -1,0 +1,41 @@
+#!/bin/bash
+#SBATCH -p mlhiwidlc_gpu-rtx2080-advanced # partition (queue)
+#SBATCH -t 23:59:59 # time (D-HH:MM:SS)
+#SBATCH --gres=gpu:8
+#SBATCH -D /work/dlclarge1/rapanti-stn_cifar/dino_cifar10
+#SBATCH -J eval_linear-horizontalflip-experiment-ep300-pretrain-ep100
+#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-horizontalflip-experiment-ep300-pretrain-ep100/log/%A.%a.%N.out
+#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-horizontalflip-experiment-ep300-pretrain-ep100/log/%A.%a.%N.out
+
+echo "Workingdir: $PWD";
+echo "Started at $(date)";
+echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_JOB_PARTITION";
+
+source /home/rapanti/.profile
+source activate dino
+
+WEIGHTS=dino-horizontalflip-experiment-ep300-pretrain/checkpoint0100.pth
+EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-horizontalflip-experiment-ep300-pretrain-ep100
+# Job to perform
+torchrun \
+  --nproc_per_node=8 \
+  --nnodes=1 \
+  --standalone \
+  eval_linear.py \
+    --arch vit_nano \
+    --dataset CIFAR10 \
+    --data_path /work/dlclarge1/rapanti-stn_cifar/data/datasets/CIFAR10 \
+    --pretrained_weights /work/dlclarge1/rapanti-stn_cifar/experiments/$WEIGHTS \
+    --img_size 32 \
+    --patch_size 4 \
+    --output_dir $EXP_D \
+    --epochs 300 \
+    --batch_size_per_gpu 96 \
+    --lr 0.01 \
+    --weight_decay 0 \
+    --num_workers 8 \
+    --val_freq 10
+
+# Print some Information about the end-time to STDOUT
+echo "DONE";
+echo "Finished at $(date)";
