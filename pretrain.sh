@@ -46,7 +46,7 @@ torchrun \
       --local_crops_scale 0.05 0.4 \
       --global_crops_scale 0.4 1 \
       --stn_color_augment true \
-      --use_fp16 true \
+      --use_fp16 false \
       --saveckp_freq 100 \
       --summary_writer_freq 100
 
