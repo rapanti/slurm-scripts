@@ -41,7 +41,7 @@ torchrun \
       --use_stn_penalty true \
       --invert_penalty true \
       --penalty_loss thetacropspenalty \
-      --epsilon 10 \
+      --epsilon 100 \
       --local_crops_number 8 \
       --local_crops_scale 0.05 0.4 \
       --global_crops_scale 0.4 1 \
