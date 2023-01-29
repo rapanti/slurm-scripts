@@ -2,10 +2,10 @@
 #SBATCH -p mlhiwidlc_gpu-rtx2080-advanced # partition (queue)
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:8
-#SBATCH -J dino-horizontalflip-experiment-ep300-pretrain2 # sets the job name. If not specified, the file name will be used as job name
+#SBATCH -J dino-horizontalflip-experiment-ep300-pretrain3 # sets the job name. If not specified, the file name will be used as job name
 #SBATCH -D /work/dlclarge1/rapanti-stn_cifar/horizontalflip
-#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain2/log/%A.%a.%N.out  # STDOUT
-#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain2/log/%A.%a.%N.out  # STDERR
+#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain3/log/%A.%a.%N.out  # STDOUT
+#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain3/log/%A.%a.%N.out  # STDERR
 #SBATCH --array 0-16%1
 
 # Print some information about the job to STDOUT
@@ -16,7 +16,7 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain2
+EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain3
 # Job to perform
 torchrun \
   --nproc_per_node=8 \
@@ -40,7 +40,7 @@ torchrun \
       --local_crops_number 8 \
       --stn_color_augment true \
       --use_fp16 true \
-      --saveckp_freq 50 \
+      --saveckp_freq 100 \
       --global_crops_scale 0.7 1 \
       --local_crops_scale 0.4 0.7 \
       --summary_writer_freq 200
