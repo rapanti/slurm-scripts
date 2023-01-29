@@ -33,7 +33,7 @@ torchrun \
       --output_dir $EXP_D \
       --epochs 300 \
       --warmup_epoch 30 \
-      --batch_size_per_gpu 128 \
+      --batch_size_per_gpu 32 \
       --invert_stn_gradients true \
       --stn_theta_norm true \
       --stn_mode rotation \
@@ -41,9 +41,9 @@ torchrun \
       --stn_color_augment true \
       --use_fp16 true \
       --saveckp_freq 50 \
-      --global_crops_scale 0.6 1 \
-      --local_crops_scale 0.2 0.6 \
-      --summary_writer_freq 100
+      --global_crops_scale 0.7 1 \
+      --local_crops_scale 0.4 0.7 \
+      --summary_writer_freq 200
 
 # Print some Information about the end-time to STDOUT
 echo "DONE";
