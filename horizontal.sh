@@ -6,7 +6,6 @@
 #SBATCH -D /work/dlclarge1/rapanti-stn_cifar/horizontalflip
 #SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain3/log/%A.%a.%N.out  # STDOUT
 #SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain3/log/%A.%a.%N.out  # STDERR
-#SBATCH --array 0-16%1
 
 # Print some information about the job to STDOUT
 echo "Workingdir: $PWD"
