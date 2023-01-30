@@ -2,10 +2,10 @@
 #SBATCH -p mlhiwidlc_gpu-rtx2080-advanced # partition (queue)
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:4
-#SBATCH -J dino-stn_tss-vit_nano-96_40_8-tcp_eps100_rand-caugm-pretrain-ep300 # sets the job name. If not specified, the file name will be used as job name
 #SBATCH -D /work/dlclarge1/rapanti-stn_cifar/metassl-dino-rpn
-#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn_tss-vit_nano-96_40_8-tcp_eps100_rand-caugm-pretrain-ep300/log/%A.%a.%N.out  # STDOUT
-#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn_tss-vit_nano-96_40_8-tcp_eps100_rand-caugm-pretrain-ep300/log/%A.%a.%N.out  # STDERR
+#SBATCH -J dino-stn_rtss-vit_nano-60_30_6-tcp_eps100_rand-caugm-pretrain-ep300 # sets the job name. If not specified, the file name will be used as job name
+#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn_rtss-vit_nano-60_30_6-tcp_eps100_rand-caugm-pretrain-ep300/log/%A.%a.%N.out  # STDOUT
+#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn_rtss-vit_nano-60_30_6-tcp_eps100_rand-caugm-pretrain-ep300/log/%A.%a.%N.out  # STDERR
 #SBATCH --array 0-32%1
 
 # Print some information about the job to STDOUT
@@ -16,7 +16,7 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn_tss-vit_nano-96_40_8-tcp_eps100_rand-caugm-pretrain-ep300
+EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn_rtss-vit_nano-60_30_6-tcp_eps100_rand-caugm-pretrain-ep300
 
 x=1
 while [ $x != 0 ]
@@ -28,9 +28,9 @@ torchrun \
   --standalone \
     main_dino.py \
       --arch vit_nano \
-      --img_size 96 \
-      --patch_size 8 \
-      --stn_res 96 40 \
+      --img_size 60 \
+      --patch_size 6 \
+      --stn_res 30 30 \
       --out_dim 32768 \
       --data_path /work/dlclarge1/rapanti-stn_cifar/data/datasets/CIFAR10 \
       --dataset CIFAR10 \
