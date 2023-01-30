@@ -27,7 +27,7 @@ torchrun \
     --data_path /work/dlclarge1/rapanti-stn_cifar/data/datasets/CIFAR10 \
     --pretrained_weights /work/dlclarge1/rapanti-stn_cifar/experiments/$WEIGHTS \
     --img_size 32 \
-    --patch_size 84 \
+    --patch_size 4 \
     --output_dir $EXP_D \
     --epochs 300 \
     --batch_size_per_gpu 96 \
