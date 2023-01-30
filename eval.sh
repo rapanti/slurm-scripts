@@ -3,9 +3,9 @@
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:4
 #SBATCH -D /work/dlclarge1/rapanti-stn_cifar/dino_cifar10
-#SBATCH -J eval_linear-horizontalflip-experiment-ep300-pretrain3-ep100
-#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-horizontalflip-experiment-ep300-pretrain3-ep100/log/%A.%a.%N.out
-#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-horizontalflip-experiment-ep300-pretrain3-ep100/log/%A.%a.%N.out
+#SBATCH -J eval_linear-stn_rtss-vit_nano-32_16_4-tcp_eps10_rand-caugm-pretrain-ep300-ep300
+#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-stn_rtss-vit_nano-32_16_4-tcp_eps10_rand-caugm-pretrain-ep300-ep300/log/%A.%a.%N.out
+#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-stn_rtss-vit_nano-32_16_4-tcp_eps10_rand-caugm-pretrain-ep300-ep300/log/%A.%a.%N.out
 
 echo "Workingdir: $PWD";
 echo "Started at $(date)";
@@ -14,8 +14,8 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-WEIGHTS=dino-horizontalflip-experiment-ep300-pretrain3/checkpoint0100.pth
-EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-horizontalflip-experiment-ep300-pretrain3-ep100
+WEIGHTS=dino-stn_rtss-vit_nano-32_16_4-tcp_eps10_rand-caugm-pretrain-ep300/checkpoint.pth
+EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-stn_rtss-vit_nano-32_16_4-tcp_eps10_rand-caugm-pretrain-ep300-ep300
 # Job to perform
 torchrun \
   --nproc_per_node=4 \
