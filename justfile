@@ -46,4 +46,4 @@ set export
         --error=$EXP_DIR/{{EXPERIMENT_NAME}}/log/%x.%A.%a.%N.out \
         --job-name={{EXPERIMENT_NAME}} \
         --export=ALL \
-        eval_linear-gpu.sh
+        save-eval_linear-gpu.sh
