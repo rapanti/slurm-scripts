@@ -17,6 +17,10 @@ source /home/rapanti/.profile
 source activate dino
 
 EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/dino-stn_tss-vit_nano-96_40_8-tcp_eps10_rand-caugm-pretrain-ep300
+
+x=1
+while [ $x != 0 ]
+do
 # Job to perform
 torchrun \
   --nproc_per_node=4 \
@@ -49,6 +53,8 @@ torchrun \
       --use_fp16 false \
       --saveckp_freq 100 \
       --summary_writer_freq 400
+x=$?
+done
 
 # Print some Information about the end-time to STDOUT
 echo "DONE";
