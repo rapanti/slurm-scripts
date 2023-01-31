@@ -14,7 +14,7 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-WEIGHTS=test-alternating_training_gradients/checkpoint.pth
+WEIGHTS=test-cosine-epsilon/checkpoint.pth
 EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-test-cosine-epsilon-ep300
 # Job to perform
 torchrun \
