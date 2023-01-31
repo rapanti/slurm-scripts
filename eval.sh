@@ -3,9 +3,9 @@
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:4
 #SBATCH -D /work/dlclarge1/rapanti-stn_cifar/dino_cifar10
-#SBATCH -J eval_linear-test-cosine-epsilon-ep300
-#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-test-cosine-epsilon-ep300/log/%A.%a.%N.out
-#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-test-cosine-epsilon-ep300/log/%A.%a.%N.out
+#SBATCH -J eval_linear-test-alternating_training_gradients-ep300
+#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-test-alternating_training_gradients-ep300/log/%A.%a.%N.out
+#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-test-alternating_training_gradients-ep300/log/%A.%a.%N.out
 
 echo "Workingdir: $PWD";
 echo "Started at $(date)";
@@ -14,8 +14,8 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-WEIGHTS=test-cosine-epsilon/checkpoint.pth
-EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-test-cosine-epsilon-ep300
+WEIGHTS=test-alternating_training_gradients/checkpoint.pth
+EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-test-alternating_training_gradients-ep300
 # Job to perform
 torchrun \
   --nproc_per_node=4 \
@@ -30,7 +30,7 @@ torchrun \
     --patch_size 4 \
     --output_dir $EXP_D \
     --epochs 300 \
-    --batch_size_per_gpu 96 \
+    --batch_size_per_gpu 192 \
     --lr 0.01 \
     --weight_decay 0 \
     --num_workers 8 \
