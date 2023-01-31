@@ -22,7 +22,7 @@ torchrun \
   --nnodes=1 \
   --standalone \
   eval_linear.py \
-    --arch vit_small \
+    --arch vit_nano \
     --dataset CIFAR10 \
     --data_path /work/dlclarge1/rapanti-stn_cifar/data/datasets/CIFAR10 \
     --pretrained_weights /work/dlclarge1/rapanti-stn_cifar/experiments/$WEIGHTS \
