@@ -3,9 +3,9 @@
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:4
 #SBATCH -D /work/dlclarge1/rapanti-stn_cifar/dino_cifar10
-#SBATCH -J eval_linear-vit_nano-stn_rotation-32_16-lcrops8-lcmod-penalty-eps10-ep300-pretrain
-#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-vit_nano-stn_rotation-32_16-lcrops8-lcmod-penalty-eps10-ep300-pretrain/log/%A.%a.%N.out
-#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-vit_nano-stn_rotation-32_16-lcrops8-lcmod-penalty-eps10-ep300-pretrain/log/%A.%a.%N.out
+#SBATCH -J eval_linear-stn_tss-vit_nano-32_16_4-tcp_positiv_eps1-caugm-pretrain-ep300
+#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-stn_tss-vit_nano-32_16_4-tcp_positiv_eps1-caugm-pretrain-ep300/log/%A.%a.%N.out
+#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-stn_tss-vit_nano-32_16_4-tcp_positiv_eps1-caugm-pretrain-ep300/log/%A.%a.%N.out
 
 echo "Workingdir: $PWD";
 echo "Started at $(date)";
@@ -14,15 +14,15 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-WEIGHTS=dino-vit_nano-stn_rotation-32_16-lcrops8-lcmod-penalty-eps10-ep300-pretrain/checkpoint.pth
-EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-vit_nano-stn_rotation-32_16-lcrops8-lcmod-penalty-eps10-ep300-pretrain
+WEIGHTS=dino-stn_tss-vit_nano-32_16_4-tcp_positiv_eps1-caugm-pretrain-ep300/checkpoint.pth
+EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/eval_linear-stn_tss-vit_nano-32_16_4-tcp_positiv_eps1-caugm-pretrain-ep300
 # Job to perform
 torchrun \
   --nproc_per_node=4 \
   --nnodes=1 \
   --standalone \
   eval_linear.py \
-    --arch vit_nano \
+    --arch vit_nano  \
     --dataset CIFAR10 \
     --data_path /work/dlclarge1/rapanti-stn_cifar/data/datasets/CIFAR10 \
     --pretrained_weights /work/dlclarge1/rapanti-stn_cifar/experiments/$WEIGHTS \
