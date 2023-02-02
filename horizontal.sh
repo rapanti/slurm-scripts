@@ -39,9 +39,9 @@ torchrun \
       --stn_color_augment true \
       --use_fp16 true \
       --saveckp_freq 100 \
-      --global_crops_scale 0.8 1 \
-      --local_crops_scale 0.4 0.8 \
-      --summary_writer_freq 1000
+      --global_crops_scale 0.4 1 \
+      --local_crops_scale 0.05 0.4 \
+      --summary_writer_freq 200
 
 # Print some Information about the end-time to STDOUT
 echo "DONE";
