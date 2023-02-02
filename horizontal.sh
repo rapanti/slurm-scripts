@@ -23,11 +23,9 @@ torchrun \
   --nnodes=1 \
   --standalone \
     main_dino.py \
-      --arch vit_nano \
+      --arch vit_96 \
       --img_size 32 \
       --patch_size 4 \
-      --stn_res 32 16 \
-      --out_dim 32768 \
       --data_path /work/dlclarge1/rapanti-stn_cifar/data/datasets/CIFAR10 \
       --dataset CIFAR10 \
       --output_dir $EXP_D \
@@ -41,8 +39,8 @@ torchrun \
       --stn_color_augment true \
       --use_fp16 true \
       --saveckp_freq 100 \
-      --global_crops_scale 0.7 1 \
-      --local_crops_scale 0.4 0.7 \
+      --global_crops_scale 0.8 1 \
+      --local_crops_scale 0.4 0.8 \
       --summary_writer_freq 1000
 
 # Print some Information about the end-time to STDOUT
