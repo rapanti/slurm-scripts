@@ -6,6 +6,7 @@
 #SBATCH -D /work/dlclarge1/rapanti-stn_cifar/horizontalflip
 #SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain5/log/%A.%a.%N.out  # STDOUT
 #SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain5/log/%A.%a.%N.out  # STDERR
+#SBATCH --array 0-31%1
 
 # Print some information about the job to STDOUT
 echo "Workingdir: $PWD"
@@ -42,7 +43,7 @@ torchrun \
       --saveckp_freq 100 \
       --global_crops_scale 0.7 1 \
       --local_crops_scale 0.4 0.7 \
-      --summary_writer_freq 200
+      --summary_writer_freq 1000
 
 # Print some Information about the end-time to STDOUT
 echo "DONE";
