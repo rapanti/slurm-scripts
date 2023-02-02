@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p mlhiwidlc_gpu-rtx2080-advanced # partition (queue)
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
-#SBATCH --gres=gpu:8
+#SBATCH --gres=gpu:4
 #SBATCH -J dino-horizontalflip-experiment-ep300-pretrain6 # sets the job name. If not specified, the file name will be used as job name
 #SBATCH -D /work/dlclarge1/rapanti-stn_cifar/horizontalflip
 #SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain6/log/%A.%a.%N.out  # STDOUT
@@ -19,7 +19,7 @@ source activate dino
 EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/dino-horizontalflip-experiment-ep300-pretrain6
 # Job to perform
 torchrun \
-  --nproc_per_node=8 \
+  --nproc_per_node=4 \
   --nnodes=1 \
   --standalone \
     main_dino.py \
@@ -31,7 +31,7 @@ torchrun \
       --output_dir $EXP_D \
       --epochs 300 \
       --warmup_epoch 30 \
-      --batch_size_per_gpu 32 \
+      --batch_size_per_gpu 64 \
       --invert_stn_gradients true \
       --stn_theta_norm false \
       --stn_mode rotation \
