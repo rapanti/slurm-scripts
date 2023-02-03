@@ -3,9 +3,9 @@
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:4
 #SBATCH -D /work/dlclarge1/rapanti-stn_cifar/alternating_gradients
-#SBATCH -J pretrain-alternating_gradients-vit_nano-train-stn-every-4ep # sets the job name. If not specified, the file name will be used as job name
-#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/pretrain-alternating_gradients-vit_nano-train-stn-every-4ep/log/%A.%a.%N.out  # STDOUT
-#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/pretrain-alternating_gradients-vit_nano-train-stn-every-4ep/log/%A.%a.%N.out  # STDERR
+#SBATCH -J pretrain-alternating_gradients-vit_nano-train-stn-every-5ep # sets the job name. If not specified, the file name will be used as job name
+#SBATCH -o /work/dlclarge1/rapanti-stn_cifar/experiments/pretrain-alternating_gradients-vit_nano-train-stn-every-5ep/log/%A.%a.%N.out  # STDOUT
+#SBATCH -e /work/dlclarge1/rapanti-stn_cifar/experiments/pretrain-alternating_gradients-vit_nano-train-stn-every-5ep/log/%A.%a.%N.out  # STDERR
 #SBATCH --array 0-3%1
 
 # Print some information about the job to STDOUT
@@ -16,7 +16,7 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/pretrain-alternating_gradients-vit_nano-train-stn-every-4ep
+EXP_D=/work/dlclarge1/rapanti-stn_cifar/experiments/pretrain-alternating_gradients-vit_nano-train-stn-every-5ep
 
 x=1
 while [ $x != 0 ]
