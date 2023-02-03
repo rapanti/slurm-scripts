@@ -37,7 +37,7 @@ torchrun \
       --stn_mode rotation \
       --local_crops_number 8 \
       --stn_color_augment true \
-      --use_fp16 true \
+      --use_fp16 false \
       --saveckp_freq 100 \
       --global_crops_scale 0.7 1 \
       --local_crops_scale 0.4 0.7 \
