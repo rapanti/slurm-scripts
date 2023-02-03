@@ -3,9 +3,9 @@
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:4
 #SBATCH -D /work/dlclarge2/rapanti-metassl-dino-stn/ema
-#SBATCH -J pretrain-stn_with_ema-vit_pico-testrun # sets the job name. If not specified, the file name will be used as job name
-#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/pretrain-stn_with_ema-vit_pico-testrun/log/%A.%a.%N.out  # STDOUT
-#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/pretrain-stn_with_ema-vit_pico-testrun/log/%A.%a.%N.out  # STDERR
+#SBATCH -J pretrain-stn_with_ema-vit_nano-testrun # sets the job name. If not specified, the file name will be used as job name
+#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/pretrain-stn_with_ema-vit_nano-testrun/log/%A.%a.%N.out  # STDOUT
+#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/pretrain-stn_with_ema-vit_nano-testrun/log/%A.%a.%N.out  # STDERR
 #SBATCH --array 0-3%1
 
 # Print some information about the job to STDOUT
@@ -16,7 +16,7 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-EXP_D=/work/dlclarge2/rapanti-metassl-dino-stn/experiments/pretrain-stn_with_ema-vit_pico-testrun
+EXP_D=/work/dlclarge2/rapanti-metassl-dino-stn/experiments/pretrain-stn_with_ema-vit_nano-testrun
 
 x=2
 while [ $x == 2 ]
@@ -27,11 +27,11 @@ torchrun \
   --nnodes=1 \
   --standalone \
     main_dino.py \
-      --arch vit_pico \
+      --arch vit_nano \
       --img_size 32 \
       --patch_size 4 \
       --stn_res 32 16 \
-      --out_dim 16384 \
+      --out_dim 32768 \
       --data_path /work/dlclarge1/rapanti-stn_cifar/data/datasets/CIFAR10 \
       --dataset CIFAR10 \
       --output_dir $EXP_D \
