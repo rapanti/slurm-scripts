@@ -6,7 +6,7 @@
 #SBATCH -J testing-training-pipeline # sets the job name. If not specified, the file name will be used as job name
 #SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/testing-training-pipeline/log/%A.%a.%N.out  # STDOUT
 #SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/testing-training-pipeline/log/%A.%a.%N.out  # STDERR
-#SBATCH --array 0-3%1
+#SBATCH --array 0-15%1
 
 # Print some information about the job to STDOUT
 echo "Workingdir: $PWD"
@@ -29,7 +29,7 @@ torchrun \
       --patch_size 4 \
       --stn_res 32 16 \
       --out_dim 32768 \
-      --data_path /work/dlclarge1/rapanti-stn_cifar/data/datasets/CIFAR10 \
+      --data_path /work/dlclarge2/rapanti-metassl-dino-stn/datasets/CIFAR10 \
       --dataset CIFAR10 \
       --output_dir $EXP_D \
       --epochs 300 \
