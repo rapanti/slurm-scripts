@@ -33,7 +33,7 @@ torchrun \
       --output_dir $EXP_D \
       --epochs 300 \
       --warmup_epoch 30 \
-      --batch_size 256 \
+      --batch_size_per_gpu 64 \
       --use_fp16 false \
       --saveckp_freq 100
 
