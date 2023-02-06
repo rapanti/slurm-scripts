@@ -3,9 +3,9 @@
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:4
 #SBATCH -D /work/dlclarge2/rapanti-metassl-dino-stn/overlap
-#SBATCH -J overlap-penalty-testrun1 # sets the job name. If not specified, the file name will be used as job name
-#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/overlap-penalty-testrun1/log/%A.%a.%N.out  # STDOUT
-#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/overlap-penalty-testrun1/log/%A.%a.%N.out  # STDERR
+#SBATCH -J overlap-tcp-penalty-testrun # sets the job name. If not specified, the file name will be used as job name
+#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/overlap-tcp-penalty-testrun/log/%A.%a.%N.out  # STDOUT
+#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/overlap-tcp-penalty-testrun/log/%A.%a.%N.out  # STDERR
 #SBATCH --array 0-31%1
 
 # Print some information about the job to STDOUT
@@ -16,7 +16,7 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-EXP_D=/work/dlclarge2/rapanti-metassl-dino-stn/experiments/overlap-penalty-testrun1
+EXP_D=/work/dlclarge2/rapanti-metassl-dino-stn/experiments/overlap-tcp-penalty-testrun
 
 # Job to perform
 torchrun \
@@ -47,7 +47,7 @@ torchrun \
       --local_crops_scale 0.05 0.4 \
       --global_crops_scale 0.4 1 \
       --stn_color_augment true \
-      --use_fp16 true \
+      --use_fp16 false \
       --saveckp_freq 100 \
       --summary_writer_freq 200
 
