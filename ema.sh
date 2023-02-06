@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH -p mlhiwidlc_gpu-rtx2080-advanced # partition (queue)
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
-#SBATCH --gres=gpu:4
+#SBATCH --gres=gpu:2
 #SBATCH -D /work/dlclarge2/rapanti-metassl-dino-stn/ema
 #SBATCH -J ema-frozen_stn-baseline # sets the job name. If not specified, the file name will be used as job name
 #SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/ema-frozen_stn-baseline/log/%A.%a.%N.out  # STDOUT
 #SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/ema-frozen_stn-baseline/log/%A.%a.%N.out  # STDERR
-#SBATCH --array 0-3%1
+#SBATCH --array 0-31%1
 
 # Print some information about the job to STDOUT
 echo "Workingdir: $PWD"
@@ -20,7 +20,7 @@ EXP_D=/work/dlclarge2/rapanti-metassl-dino-stn/experiments/ema-frozen_stn-baseli
 
 # Job to perform
 torchrun \
-  --nproc_per_node=4 \
+  --nproc_per_node=2 \
   --nnodes=1 \
   --standalone \
     run_train_eval.py \
@@ -42,14 +42,14 @@ torchrun \
       --use_stn_penalty true \
       --invert_penalty true \
       --penalty_loss ThetaCropsPenalty \
-      --epsilon 10 \
+      --epsilon 100 \
       --local_crops_number 8 \
       --local_crops_scale 0.05 0.4 \
       --global_crops_scale 0.4 1 \
       --stn_color_augment true \
       --use_fp16 true \
       --saveckp_freq 100 \
-      --summary_writer_freq 400
+      --summary_writer_freq 200
 
 # Print some Information about the end-time to STDOUT
 echo "DONE";
