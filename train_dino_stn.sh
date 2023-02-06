@@ -49,6 +49,7 @@ torchrun \
       --stn_color_augment true \
       --use_fp16 true \
       --saveckp_freq 100 \
+      --separate_localization_net true \
       --summary_writer_freq 400
 
 # Print some Information about the end-time to STDOUT
