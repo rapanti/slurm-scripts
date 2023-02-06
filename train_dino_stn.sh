@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH -p mlhiwidlc_gpu-rtx2080-advanced # partition (queue)
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
-#SBATCH --gres=gpu:2
+#SBATCH --gres=gpu:4
 #SBATCH -D /work/dlclarge2/rapanti-metassl-dino-stn/dino-stn
-#SBATCH -J tcp-baseline-eps100 # sets the job name. If not specified, the file name will be used as job name
-#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/tcp-baseline-eps100/log/%A.%a.%N.out  # STDOUT
-#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/tcp-baseline-eps100/log/%A.%a.%N.out  # STDERR
+#SBATCH -J separate-backbones-base # sets the job name. If not specified, the file name will be used as job name
+#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/separate-backbones-base/log/%A.%a.%N.out  # STDOUT
+#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/separate-backbones-base/log/%A.%a.%N.out  # STDERR
 #SBATCH --array 0-15%1
 
 # Print some information about the job to STDOUT
@@ -16,11 +16,11 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-EXP_D=/work/dlclarge2/rapanti-metassl-dino-stn/experiments/tcp-baseline-eps100
+EXP_D=/work/dlclarge2/rapanti-metassl-dino-stn/experiments/separate-backbones-base
 
 # Job to perform
 torchrun \
-  --nproc_per_node=2 \
+  --nproc_per_node=4 \
   --nnodes=1 \
   --standalone \
     run_train_eval.py \
