@@ -3,9 +3,9 @@
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:2
 #SBATCH -D /work/dlclarge2/rapanti-metassl-dino-stn/global-plus-original
-#SBATCH -J global-plus-original-testrun # sets the job name. If not specified, the file name will be used as job name
-#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/global-plus-original-testrun/log/%A.%a.%N.out  # STDOUT
-#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/global-plus-original-testrun/log/%A.%a.%N.out  # STDERR
+#SBATCH -J global-plus-original-base-eps100 # sets the job name. If not specified, the file name will be used as job name
+#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/global-plus-original-base-eps100/log/%A.%a.%N.out  # STDOUT
+#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/global-plus-original-base-eps100/log/%A.%a.%N.out  # STDERR
 #SBATCH --array 0-31%1
 
 # Print some information about the job to STDOUT
@@ -16,7 +16,7 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-EXP_D=/work/dlclarge2/rapanti-metassl-dino-stn/experiments/global-plus-original-testrun
+EXP_D=/work/dlclarge2/rapanti-metassl-dino-stn/experiments/global-plus-original-base-eps100
 
 # Job to perform
 torchrun \
@@ -42,7 +42,7 @@ torchrun \
       --use_stn_penalty true \
       --invert_penalty true \
       --penalty_loss ThetaCropsPenalty \
-      --epsilon 10 \
+      --epsilon 100 \
       --local_crops_number 8 \
       --local_crops_scale 0.05 0.4 \
       --global_crops_scale 0.4 1 \
