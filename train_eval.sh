@@ -2,11 +2,11 @@
 #SBATCH -p mlhiwidlc_gpu-rtx2080-advanced # partition (queue)
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:4
-#SBATCH -D /work/dlclarge2/rapanti-metassl-dino-stn/overlap
-#SBATCH -J overlap-penalty-testrun1 # sets the job name. If not specified, the file name will be used as job name
-#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/overlap-penalty-testrun1/log/%A.%a.%N.out  # STDOUT
-#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/overlap-penalty-testrun1/log/%A.%a.%N.out  # STDERR
-#SBATCH --array 0-31%1
+#SBATCH -D /work/dlclarge2/rapanti-metassl-dino-stn/dino-stn
+#SBATCH -J separate-backbones-base # sets the job name. If not specified, the file name will be used as job name
+#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/separate-backbones-base/log/%A.%a.%N.out  # STDOUT
+#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/separate-backbones-base/log/%A.%a.%N.out  # STDERR
+#SBATCH --array 0-32%1
 
 # Print some information about the job to STDOUT
 echo "Workingdir: $PWD"
@@ -16,7 +16,7 @@ echo "Running job $SLURM_JOB_NAME with given JID $SLURM_JOB_ID on queue $SLURM_J
 source /home/rapanti/.profile
 source activate dino
 
-EXP_D=/work/dlclarge2/rapanti-metassl-dino-stn/experiments/overlap-penalty-testrun1
+EXP_D=/work/dlclarge2/rapanti-metassl-dino-stn/experiments/baseline-stn-tcp-eps100-ep300-bs256
 
 # Job to perform
 torchrun \
@@ -29,7 +29,7 @@ torchrun \
       --patch_size 4 \
       --stn_res 32 16 \
       --out_dim 32768 \
-      --data_path /work/dlclarge1/rapanti-stn_cifar/data/datasets/CIFAR10 \
+      --data_path /work/dlclarge2/rapanti-metassl-dino-stn/datasets/CIFAR10 \
       --dataset CIFAR10 \
       --output_dir $EXP_D \
       --epochs 300 \
@@ -49,7 +49,7 @@ torchrun \
       --stn_color_augment true \
       --use_fp16 true \
       --saveckp_freq 100 \
-      --summary_writer_freq 200
+      --summary_writer_freq 400
 
 # Print some Information about the end-time to STDOUT
 echo "DONE";
