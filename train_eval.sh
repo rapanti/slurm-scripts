@@ -3,9 +3,9 @@
 #SBATCH -t 23:59:59 # time (D-HH:MM:SS)
 #SBATCH --gres=gpu:4
 #SBATCH -D /work/dlclarge2/rapanti-metassl-dino-stn/dino-stn
-#SBATCH -J separate-backbones-base # sets the job name. If not specified, the file name will be used as job name
-#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/separate-backbones-base/log/%A.%a.%N.out  # STDOUT
-#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/separate-backbones-base/log/%A.%a.%N.out  # STDERR
+#SBATCH -J baseline-stn-tcp-eps100-ep300-bs256 # sets the job name. If not specified, the file name will be used as job name
+#SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/baseline-stn-tcp-eps100-ep300-bs256/log/%A.%a.%N.out  # STDOUT
+#SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/baseline-stn-tcp-eps100-ep300-bs256/log/%A.%a.%N.out  # STDERR
 #SBATCH --array 0-32%1
 
 # Print some information about the job to STDOUT
@@ -49,7 +49,12 @@ torchrun \
       --stn_color_augment true \
       --use_fp16 true \
       --saveckp_freq 100 \
-      --summary_writer_freq 400
+      --summary_writer_freq 200
+
+if [ $? == 0]
+do
+  scancel $SLURM_JOB_ID
+done
 
 # Print some Information about the end-time to STDOUT
 echo "DONE";
