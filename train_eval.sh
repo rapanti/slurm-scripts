@@ -6,7 +6,7 @@
 #SBATCH -J baseline-stn-tcp-eps100-ep300-bs256 # sets the job name. If not specified, the file name will be used as job name
 #SBATCH -o /work/dlclarge2/rapanti-metassl-dino-stn/experiments/baseline-stn-tcp-eps100-ep300-bs256/log/%A.%a.%N.out  # STDOUT
 #SBATCH -e /work/dlclarge2/rapanti-metassl-dino-stn/experiments/baseline-stn-tcp-eps100-ep300-bs256/log/%A.%a.%N.out  # STDERR
-#SBATCH --array 0-32%1
+#SBATCH --array 0-31%1
 
 # Print some information about the job to STDOUT
 echo "Workingdir: $PWD"
@@ -51,10 +51,11 @@ torchrun \
       --saveckp_freq 100 \
       --summary_writer_freq 200
 
-if [ $? == 0]
-do
-  scancel $SLURM_JOB_ID
-done
+x=$?
+if [ $x == 0 ]
+then
+  scancel "$SLURM_JOB_ID"
+fi
 
 # Print some Information about the end-time to STDOUT
 echo "DONE";
