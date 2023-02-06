@@ -34,7 +34,7 @@ torchrun \
       --output_dir $EXP_D \
       --epochs 300 \
       --warmup_epoch 30 \
-      --batch_size 64 \
+      --batch_size 256 \
       --invert_stn_gradients true \
       --stn_theta_norm true \
       --use_unbounded_stn true \
