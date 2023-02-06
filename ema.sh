@@ -23,7 +23,7 @@ torchrun \
   --nproc_per_node=4 \
   --nnodes=1 \
   --standalone \
-    main_dino.py \
+    run_train_eval.py \
       --arch vit_nano \
       --img_size 32 \
       --patch_size 4 \
