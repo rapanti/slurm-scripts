@@ -34,14 +34,14 @@ torchrun \
       --output_dir $EXP_D \
       --epochs 300 \
       --warmup_epoch 30 \
-      --batch_size_per_gpu 64 \
+      --batch_size 64 \
       --invert_stn_gradients true \
       --stn_theta_norm true \
       --use_unbounded_stn true \
       --stn_mode translation_scale_symmetric \
       --use_stn_penalty true \
       --invert_penalty true \
-      --penalty_loss thetacropspenalty \
+      --penalty_loss ThetaCropsPenalty \
       --epsilon 10 \
       --local_crops_number 8 \
       --local_crops_scale 0.05 0.4 \
