@@ -35,8 +35,7 @@ torchrun \
       --warmup_epoch 30 \
       --batch_size 256 \
       --use_fp16 false \
-      --saveckp_freq 100 \
-      --summary_writer_freq 200
+      --saveckp_freq 100
 
 x=$?
 if [ $x == 0 ]
